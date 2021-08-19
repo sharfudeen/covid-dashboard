@@ -1,23 +1,27 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-// const getDetails = () => {
-//   return axios.get("https://data.covid19india.org/v4/min/data.min.json");
-// };
+const getDetails = () => {
+  return axios.get("https://data.covid19india.org/v4/min/data.min.json");
+};
 const CovidData = () => {
-//   const [covidData, setCovidData] = useState("");
-//   const [openDistricts, setOpenDistricts] = useState(false);
-//   useEffect(() => {
-//     getDetails().then((response) => {
-//       console.log("response === ", response);
-//       const { data } = response;
-//       const dataArr = Object.entries(data);
-//       console.log("dataArr === ", dataArr);
-//       setCovidData(dataArr);
-//     });
-//   }, []);
-//   const handleClick = () => {
-//     setOpenDistricts(!openDistricts);
-//   };
+  const [covidDetails, setCovidDetails] = useState([]);
+  const [openDistricts, setOpenDistricts] = useState(false);
+  const [distData, setDistData] = useState([]);
+  useEffect(() => {
+    getDetails().then((response) => {
+      const { data } = response;
+      const dataArr = Object.entries(data);
+      console.log("dataArr === ", dataArr);
+      setCovidDetails(dataArr);
+    });
+  }, []);
+  const handleClick = (item, index) => {
+    console.log("item :::", item);
+    console.log("index :::", index);
+    setDistData(Object.entries(item[1].districts));
+    setOpenDistricts(!openDistricts);
+  };
+  console.log("distData :::", distData);
   return (
     <>
       <div className="flex">
@@ -45,12 +49,12 @@ const CovidData = () => {
               <div className="text-white">Fully Vaccinated</div>
             </div>
           </div>
-          {/* {covidData.map((item, index) => {
+          {covidDetails.map((item, index) => {
             return (
               <>
                 <div
                   className="cursor-pointer contents"
-                  onClick={handleClick}
+                  onClick={() => handleClick(item, index)}
                   key={index}
                 >
                   <div className="flex flex-row items-center px-5 py-3 text-base font-semibold text-left bg-gray-50 hover:bg-gray-300">
@@ -78,7 +82,7 @@ const CovidData = () => {
                 {openDistricts ? (
                   <>
                     <div className="h-5 bg-blue-400 cursor-pointer contents">
-                      {item[1].districts.map((district, index) => {
+                      {distData.districts.map((district, index) => {
                         return (
                           <>
                             <div
@@ -95,7 +99,7 @@ const CovidData = () => {
                 ) : null}
               </>
             );
-          })} */}
+          })}
         </div>
         {/* <table className="w-full">
           <thead>

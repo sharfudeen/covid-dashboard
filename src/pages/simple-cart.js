@@ -85,7 +85,7 @@ const SimpleCart = () => {
               })
             )}
           </div>
-          <p className="text-xl font-bold">Total: {total}</p>
+          <p className="text-xl font-bold">Total: Rs. {total}</p>
         </div>
       </div>
     </>

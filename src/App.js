@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/">
             <SimpleCart />
           </Route>
-          <Route path="/covid">
+          <Route exact path="/covid">
             <CovidData />
           </Route>
         </Switch>
